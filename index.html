@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Guess Name Of Job</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" href="https://4level1.net/images/favicon.png">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-ellipse-progress/dist/vue-ellipse-progress.umd.min.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div class="container-fluid">
+            <div class="row  justify-content-center align-items-center">
+                <div class="card" id="myDIV" v-if="hideDiv"
+                    style="background-color:thistle; border-color:darkblue; width: 40%; margin-top: 10%;">
+                    <div class="card-title">
+                        <div class="text-center">
+                            <vue-ellipse-progress :dot="{size: 30,backgroundColor: 'white',width: '2px',}" line="butt"
+                                :color="{colors: [{color: '#6546f7',offset: '0',opacity: '1',},{color: 'lime',offset: '100',opacity: '0.6',},]}"
+                                emptyColor="#8ec5fc" :thickness="8" emptyThickness="8" :size="100" dash="strict 60 0.8"
+                                lineMode="in 10" :legend="false" legendClass="legend-custom-style"
+                                animation="loop 1000 1000" :noData="false" :loading="true" fontColor="white"
+                                :half="false" :gap="10" fontSize="1.5rem">
+                                <span slot="legend-caption">
+                                    <span>{{ countDown }}</span>
+                                </span>
+                            </vue-ellipse-progress>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title text-center">{{ Job_Title }}</h4>
+                    </div>
+                    <div class="card-footer text-center justify-content-center align-items-center">
+                        <button type="submit" id="startbtn" class="button-primary" :disabled='isActive'
+                            margin-top="20px" v-on:click.once="changeTitle" autofocus>{{
+                            welcomeText}}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        // list of jobs that are used to create a game
+        const jobs = ["Accountant",
+            "Actor-Actress",
+            'Architect',
+            'Artist',
+            'Astronaut',
+            'Baker',
+            'Ballet Dancer',
+            'Bartender',
+            'Bellboy',
+            'Biologist',
+            'Boxer',
+            'Bus Driver',
+            'Businessman',
+            'Butcher',
+            'Cameraman',
+            'Caretaker',
+            'Carpenter',
+            'Cashier',
+            'Chef',
+            'Computer Programmer',
+            'Customs Officer',
+            'Delivery Man',
+            'Dentist',
+            'Diver',
+            'Doctor',
+            'Electrician',
+            'Engineer',
+            'Entrepreneur',
+            'Factory Worker',
+            'Farmer',
+            'Fireman',
+            'Fisherman',
+            'Flight Attendant',
+            'Florist',
+            'Gardener',
+            'Gas Station Attendant',
+            'Guitarist',
+            'Hairdresser',
+            'Judge',
+            'Lawyer',
+            'Librarian',
+            'Lifeguard',
+            'Miner',
+            'Model',
+            'Musician',
+            'Nurse',
+            'Office Worker',
+            'Optician',
+            'Paramedic',
+            'Pharmacist',
+            'Photographer',
+            'Pilot',
+            'Plumber',
+            'Police Officer',
+            'Politician',
+            'Priest',
+            'Real Estate Agent',
+            'Receptionist',
+            'Repairman',
+            'Scientist',
+            'Singer',
+            'Speaker',
+            'Student',
+            'Surgeonv',
+            'Tailor',
+            'Taxi Driver',
+            'Teacher',
+            'Veterinarian',
+            'Violinist',
+            'Waiter',
+        ]
+        const app = new Vue({
+            el: '#app',
+            methods: {
+                changeTitle: function () {
+                    this.countDown = 25
+                    this.Job_Title = jobs[Math.floor(Math.random() * jobs.length)]
+                    clearInterval(this.countDownTimer.timer)
+                    this.countDownTimer()
+                    this.welcomeText = "Enjoy 🤦‍♂️"
+                    this.isActive = true
+                },
+                countDownTimer() {
+                    const timer = setInterval(() => {
+                        if (this.countDown > 0) {
+                            this.countDown--;
+                        } else {
+                            clearInterval(timer);
+                            this.changeTitle()
+                        }
+                    }, 1000);
+                },
+            },
+            data: {
+                welcomeText: "Start a new game",
+                hideDiv: true,
+                isActive: false,
+                Job_Title: jobs[Math.floor(Math.random() * jobs.length)],
+                countDown: 25
+            },
+        })
+    </script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
