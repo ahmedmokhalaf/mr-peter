@@ -37,9 +37,12 @@
                     <div class="card-body">
                         <h4 class="card-title text-center">{{ Job_Title }}</h4>
                     </div>
+                    <button class="btn"  v-on:click="ChangeTitles" v-show='isActive'>
+                            🔄 <span class="badge badge-primary"></span>
+                    </button>
                     <div class="card-footer text-center justify-content-center align-items-center">
                         <button type="submit" id="startbtn" class="button-primary" :disabled='isActive'
-                            margin-top="20px" v-on:click.once="changeTitle" autofocus>{{
+                            margin-top="20px" v-on:click.once="StartGame()" autofocus>{{
                             welcomeText}}</button>
                     </div>
                 </div>
@@ -123,10 +126,16 @@
         const app = new Vue({
             el: '#app',
             methods: {
-                changeTitle: function () {
-                    this.countDown = 25
+                RandomJob: function(){
                     this.Job_Title = jobs[Math.floor(Math.random() * jobs.length)]
-                    clearInterval(this.countDownTimer.timer)
+                },
+                ChangeTitles: function() {
+                    this.RandomJob()
+                },
+                    
+                StartGame: function () {
+                    this.countDown = 25
+                    this.RandomJob()
                     this.countDownTimer()
                     this.welcomeText = "Enjoy 🤦‍♂️"
                     this.isActive = true
@@ -137,7 +146,7 @@
                             this.countDown--;
                         } else {
                             clearInterval(timer);
-                            this.changeTitle()
+                            this.StartGame()
                         }
                     }, 1000);
                 },
